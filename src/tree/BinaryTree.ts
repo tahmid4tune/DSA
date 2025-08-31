@@ -2,9 +2,9 @@
 Example Binary tree:
              1
             / \
-            2  3
-           / \
-          4   5
+           2   3
+          / \
+         4   5
 */
 /**
  * The NODE class that represents a NODE in the Binary Tree
