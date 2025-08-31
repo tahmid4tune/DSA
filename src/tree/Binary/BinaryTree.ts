@@ -1,3 +1,5 @@
+import { Node } from "./Node";
+
 /*
 Example Binary tree:
              1
@@ -6,21 +8,6 @@ Example Binary tree:
           / \
          4   5
 */
-/**
- * The NODE class that represents a NODE in the Binary Tree
- */
-class Node {
-  data: number;
-  left: Node | null;
-  right: Node | null;
-
-  constructor(item: number) {
-    this.data = item;
-    this.left = null;
-    this.right = null;
-  }
-}
-
 class BinaryTree {
   root: Node | null = null;
 
