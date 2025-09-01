@@ -57,6 +57,38 @@ class BST {
       ? this._searchRec(root.left, data)
       : this._searchRec(root.right, data);
   }
+
+  delete(value: number): void {
+    this.root = this._deleteRec(this.root, value);
+  }
+
+  private _deleteRec(node: Node | null, value: number): Node | null {
+    if (node === null) return null;
+
+    if (value < node.data) {
+      node.left = this._deleteRec(node.left, value);
+    } else if (value > node.data) {
+      node.right = this._deleteRec(node.right, value);
+    } else {
+      // Node found → handle cases
+      if (node.left === null) return node.right;
+      if (node.right === null) return node.left;
+
+      // Node with two children → find inorder successor (smallest in right subtree)
+      let successor = this._minValueNode(node.right);
+      node.data = successor.data;
+      node.right = this._deleteRec(node.right, successor.data);
+    }
+    return node;
+  }
+
+  private _minValueNode(node: Node): Node {
+    let current = node;
+    while (current.left !== null) {
+      current = current.left;
+    }
+    return current;
+  }
 }
 
 // Example usage
@@ -69,12 +101,13 @@ bst.insert(40);
 bst.insert(60);
 bst.insert(80);
 
-console.log("Inorder (sorted):");
-bst.inorder(); // 20 30 40 50 60 70 80
-console.log("\nPreorder:");
-bst.preorder();
-console.log("\nPostorder:");
-bst.postorder();
+console.log("Inorder before deletion:", bst.inorder());
+
+bst.delete(20); // Leaf node
+bst.delete(30); // Node with one child
+bst.delete(50); // Node with two children
+
+console.log("Inorder after deletion:", bst.inorder());
 
 console.log("\nSearch 60:", bst.search(60)); // Returns true
 console.log("Search 25:", bst.search(25)); // Returns false
